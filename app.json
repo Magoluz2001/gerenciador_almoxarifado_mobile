@@ -1,26 +1,43 @@
 {
   "expo": {
-    "name": "aplicacao_movel",
+    "name": "Almoxarifado HMI",
     "slug": "aplicacao_movel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.magoluz20001.aplicacao_movel"
+      "package": "com.magoluz20001.aplicacao_movel",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "O Almoxarifado HMI necessita de aceder à câmara para ler os códigos de barras dos produtos."
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "24729a56-8d3b-44e7-bc90-dc7e8eeaa2ac"
