@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, Alert, ScrollView, Te
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { createClient } from '@supabase/supabase-js';
 
-// 1. Ligação à Base de Dados (Substitua pelas suas chaves reais)
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+// 1. Ligação à Base de Dados (Com proteção contra crash)
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://erro-na-url.supabase.co';
+const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_KEY || 'erro-na-chave';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
