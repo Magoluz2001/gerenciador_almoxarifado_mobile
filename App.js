@@ -74,13 +74,19 @@ export default function App() {
 
   const buscarDadosIniciais = async () => {
     const { data: lotesData } = await supabase.from('lotes_validade').select('*, produtos_skus(*)').gt('quantidade_atual', 0);
-    const { data: baseData } = await supabase.from('produtos_base').select('*').order('nome_oficial');
+    const { data: baseData } = await supabase.from('produtos_base').select('*');
     // Puxando o histórico de Saídas para fazer o cálculo da Previsão de Duração
     const { data: movsData } = await supabase.from('movimentacoes')
       .select('quantidade_movimentada, data_movimentacao, lotes_validade(id_sku_relacionado, produtos_skus(id_base_relacionado, conteudo_liquido))')
       .eq('tipo_movimentacao', 'SAÍDA');
 
-    if (baseData) setProdutosBaseDb(baseData);
+    if (baseData) {
+      // FILTRO APLICADO: Remove duplicatas (ignorando espaços/maiúsculas) e ordena com acentos
+      const basesUnicas = Array.from(new Map(baseData.map(b => [b.nome_oficial.trim().toLowerCase(), b])).values());
+      basesUnicas.sort((a, b) => a.nome_oficial.localeCompare(b.nome_oficial));
+      setProdutosBaseDb(basesUnicas);
+    }
+
     if (lotesData && baseData) {
       const agrupado = {};
       baseData.forEach(base => { 
